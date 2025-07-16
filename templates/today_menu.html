@@ -1,0 +1,45 @@
+<!-- lunchup/templates/lunchup/today_menu.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="text-center mb-4">
+            <p class="lead text-muted" style="font-size: 150%;">{{ today|date:"Y년 m월 d일" }}</p>
+        </div>
+
+        {% if menus %}
+            <div class="row">
+                {% for menu in menus %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4>{{ menu.get_menu_type_display }}</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="menu-content">
+                                {% for item in menu.get_menu_list %}
+                                    <div class="d-flex align-items-center mb-3">
+                                        <span class="text-primary me-3 fs-5">🍽️</span>
+                                        <span class="fs-5">{{ item }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center">
+                <h4>오늘의 메뉴가 등록되지 않았습니다.</h4>
+                <p>관리자에게 문의하거나 메뉴를 추가해주세요.</p>
+            </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="{% url 'lunchup:menu_list' %}" class="btn btn-outline-primary">전체 메뉴 보기</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

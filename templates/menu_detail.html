@@ -1,0 +1,36 @@
+<!-- lunchup/templates/lunchup/menu_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3>{{ menu.get_title }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="menu-content mb-4">
+                    {% for item in menu.get_menu_list %}
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="text-primary me-3 fs-5">🍽️</span>
+                            <span class="fs-5">{{ item }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-4">
+                    <small class="text-muted">
+                        등록일: {{ menu.created_at|date:"Y-m-d H:i" }}
+                        {% if menu.updated_at != menu.created_at %}
+                            | 수정일: {{ menu.updated_at|date:"Y-m-d H:i" }}
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'lunchup:menu_list' %}" class="btn btn-secondary">목록으로</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
